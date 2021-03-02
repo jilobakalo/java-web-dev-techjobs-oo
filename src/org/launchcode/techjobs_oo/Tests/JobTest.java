@@ -12,6 +12,7 @@ public class JobTest {
  Job object3;
  Job object4;
  Job object5;
+ Job object6;
  @Before
     public void allObjectContainer(){
        object1  = new Job();
@@ -19,6 +20,7 @@ public class JobTest {
        object3 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
        object4 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
        object5 = new Job("Pizza House", new Employer("Domino's Pizza"), new Location("st.louis"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+       object6 = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
  }
 
     @Test
@@ -51,8 +53,31 @@ public class JobTest {
      assertFalse(object3.equals(object4));
     }
     @Test
-    public void testToStringForBlankLinesAtBeginningAndEnd() {
-
+    public void testToStringForEachField() {
+      assertEquals(object5.toString(),"\nID: " + object5.getId() +
+         "\nName: " + object5.getName() +
+         "\nEmployer: " + object5.getEmployer() +
+         "\nLocation: " + object5.getLocation() +
+         "\nPosition Type: " + object5.getPositionType() +
+         "\nCore Competency: " + object5.getCoreCompetency() +
+         '\n');
     }
+    @Test
+    public void testToStringForEmptyObject() {
+     String error="OOPS! This job does not seem to exist.";
+     assertEquals(error,object6.toString());
+    }
+    @Test
+    public void checksToStringForNewLineChar() {
+        assertTrue( object3.toString().startsWith("\n"));
+        assertTrue( object3.toString().endsWith("\n"));
+    }
+    @Test
+    public void checksToStringForSpaceChar() {
+         assertFalse(object3.toString().startsWith(" "));
+         assertFalse( object3.toString().endsWith(" "));
+    }
+
+
 
 }
